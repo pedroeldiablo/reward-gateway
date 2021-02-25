@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { fetchProfiles, Profile } from '../../utils/fetchProfiles';
+import PaginationComponent from '../pagination/pagination.component';
 import { ProfileComponent } from '../profile/profile.component';
 import { ProfileList } from './profile-list.styles';
 
@@ -7,6 +8,17 @@ export function ProfileListComponent() {
   const [profilesList, updateProfilesList] = useState<Profile[] | undefined>(
     []
   );
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [profilesPerPage] = useState(10);
+  // Get current profiles
+  const indexOfLastProfile = currentPage * profilesPerPage;
+  const indexOfFirstProfile = indexOfLastProfile - profilesPerPage;
+  const currentProfiles = profilesList?.slice(
+    indexOfFirstProfile,
+    indexOfLastProfile
+  );
+
   useEffect(() => {
     // Basic implementation to handle race conditions
     // When component might unmount before API call finishes
@@ -30,19 +42,26 @@ export function ProfileListComponent() {
     };
   }, []);
 
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
   return (
     <>
       <div>Profile List</div>
       <ProfileList>
         {' '}
-        {!profilesList?.length
-          ? 'no posts found'
-          : profilesList
+        {!currentProfiles?.length
+          ? 'no profiles found'
+          : currentProfiles
               .filter((profile, idx) => idx < 20)
               .map((profile: Profile) => (
                 <ProfileComponent key={profile.uuid} {...profile} />
               ))}
       </ProfileList>
+      <PaginationComponent
+        profilesPerPage={profilesPerPage}
+        totalProfiles={profilesList?.length}
+        paginate={paginate}
+      />
     </>
   );
 }
