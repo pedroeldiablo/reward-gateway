@@ -46,7 +46,7 @@ export function ProfileListComponent() {
 
   return (
     <>
-      <div>Profile List</div>
+      <h2>Profile List</h2>
       <ProfileList>
         {' '}
         {!currentProfiles?.length
@@ -58,6 +58,7 @@ export function ProfileListComponent() {
               ))}
       </ProfileList>
       <PaginationComponent
+        currentPage={currentPage}
         profilesPerPage={profilesPerPage}
         totalProfiles={profilesList?.length}
         paginate={paginate}
