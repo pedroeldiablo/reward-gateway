@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { fetchProfiles, Profile } from '../../utils/fetchProfiles';
+import { ProfileComponent } from '../profile/profile.component';
+import { ProfileList } from './profile-list.styles';
 
-export function ProfileList() {
+export function ProfileListComponent() {
   const [profilesList, updateProfilesList] = useState<Profile[] | undefined>(
     []
   );
@@ -15,10 +17,6 @@ export function ProfileList() {
       // Create an scoped async function in the hook
       async function scopedLoad() {
         const profiles: Profile[] = await fetchProfiles();
-        // const dataLoad = await http<Post[]>(
-        //   'https://jsonplaceholder.typicode.com/photos'
-        // );
-
         if (!isStopped && profiles) {
           updateProfilesList(profiles);
         }
@@ -35,18 +33,18 @@ export function ProfileList() {
   return (
     <>
       <div>Profile List</div>
-      <div>
+      <ProfileList>
         {' '}
         {!profilesList?.length
           ? 'no posts found'
           : profilesList
-              .filter((profile, idx) => idx < 4)
+              .filter((profile, idx) => idx < 20)
               .map((profile: Profile) => (
-                <p key={profile.uuid}> {profile.title}</p>
+                <ProfileComponent key={profile.uuid} {...profile} />
               ))}
-      </div>
+      </ProfileList>
     </>
   );
 }
 
-export default ProfileList;
+export default ProfileListComponent;

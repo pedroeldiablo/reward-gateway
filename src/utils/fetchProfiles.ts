@@ -1,4 +1,9 @@
 import btoa from 'btoa';
+
+export interface ProfileImage {
+  title: string;
+  avatar: string;
+}
 export interface Profile {
   uuid: string;
   company: string;

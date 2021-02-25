@@ -64,6 +64,7 @@
   },
   "devDependencies": {
     "@types/btoa": "^1.2.3",
+    "@types/styled-components": "^5.1.7",
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^8.0.0",
     "eslint-loader": "^4.0.2",
