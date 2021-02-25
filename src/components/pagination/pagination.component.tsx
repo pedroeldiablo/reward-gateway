@@ -6,12 +6,14 @@ import {
 } from './pagination.styles';
 
 export interface Pagination {
+  currentPage: number;
   profilesPerPage?: number;
   totalProfiles?: number;
   paginate: (pageNumber: number) => void;
 }
 
 const PaginationComponent = ({
+  currentPage,
   profilesPerPage,
   totalProfiles,
   paginate,
@@ -28,6 +30,7 @@ const PaginationComponent = ({
 
   return (
     <PaginationNav>
+      <h3>Page {currentPage}</h3>
       <PaginationList>
         {pageNumbers.map((number) => (
           <PaginationLink key={number}>
