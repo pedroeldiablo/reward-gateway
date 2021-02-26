@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Profile } from '../../utils/fetchProfiles';
+import { ModalComponent } from '../modal/modal-component';
 import { ProfilePictureComponent } from '../profile-picture/profile-picture';
 import { ProfileDetails, ProfileImage, ProfileTile } from './profile.styles';
 
@@ -20,28 +21,31 @@ export function ProfileComponent({
   company = removeMarkUp(company);
   bio = removeMarkUp(bio);
 
+  const [selectedImg, setSelectedImg] = useState<string | null>(null);
+
   return (
-    <ProfileTile key={uuid}>
-      <ProfileImage>
-        <ProfilePictureComponent title={title} avatar={avatar} />
-        {/* <img
-          src={
-            avatar
-              ? avatar
-              : `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3C/svg%3E`
-          }
-          alt={`Profile of ${title}`}
-        /> */}
-      </ProfileImage>
-      <ProfileDetails>
-        <p>
-          Name
-          {company}
-        </p>
-        <p>Profession {title}</p>
-        <p>{bio}</p>
-      </ProfileDetails>
-    </ProfileTile>
+    <>
+      <ProfileTile key={uuid}>
+        <ProfileImage onClick={() => setSelectedImg(avatar)}>
+          <ProfilePictureComponent title={title} avatar={avatar} />
+        </ProfileImage>
+        <ProfileDetails>
+          <p>
+            Name
+            {company}
+          </p>
+          <p>Profession {title}</p>
+          <p>{bio}</p>
+        </ProfileDetails>
+      </ProfileTile>
+      {selectedImg && (
+        <ModalComponent
+          title={title}
+          selectedImg={selectedImg}
+          setSelectedImg={setSelectedImg}
+        />
+      )}
+    </>
   );
 }
 
