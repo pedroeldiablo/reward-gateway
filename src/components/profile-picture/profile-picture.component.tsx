@@ -17,10 +17,5 @@ export function ProfilePictureComponent({ avatar, title }: ProfileImage) {
     source = image.currentSrc;
   }
 
-  return (
-    <>
-      <p>WTF</p>
-      <img src={source ? source : fallback} alt={`Profile of ${title}`} />
-    </>
-  );
+  return <img src={source ? source : fallback} alt={`Profile of ${title}`} />;
 }
