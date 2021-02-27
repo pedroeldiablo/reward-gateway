@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProfilePictureComponent } from '../profile-picture/profile-picture';
+import { ProfilePictureComponent } from '../profile-picture/profile-picture.component';
 import { Modal } from './modal.styles';
 
 export const ModalComponent = ({

@@ -28,7 +28,8 @@ export const loadImage = (
       reject(error);
     };
 
-    // Set our handlers
+    //We need to fulfill our promise when the image loads, and handle it failing as well.
+    //This can be done with on event callbacks to set our handlers
     image.onload = loaded;
     image.onerror = errored;
     image.onabort = errored;

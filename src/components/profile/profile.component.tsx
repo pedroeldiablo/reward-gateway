@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Profile } from '../../utils/fetchProfiles';
 import { ModalComponent } from '../modal/modal-component';
-import { ProfilePictureComponent } from '../profile-picture/profile-picture';
+import { ProfilePictureComponent } from '../profile-picture/profile-picture.component';
 import { ProfileDetails, ProfileImage, ProfileTile } from './profile.styles';
 
 export function ProfileComponent({
