@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useViewport } from '../../context/viewPortContext';
 import { Profile } from '../../utils/fetchProfiles';
 import { ModalComponent } from '../modal/modal-component';
 import { ProfilePictureComponent } from '../profile-picture/profile-picture.component';
@@ -23,11 +24,19 @@ export function ProfileComponent({
 
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
 
+  const width = 300;
+  const height = 300;
+
   return (
     <>
       <ProfileTile key={uuid}>
         <ProfileImage onClick={() => setSelectedImg(avatar)}>
-          <ProfilePictureComponent title={title} avatar={avatar} />
+          <ProfilePictureComponent
+            title={title}
+            avatar={avatar}
+            height={height}
+            width={width}
+          />
         </ProfileImage>
         <ProfileDetails>
           <p>

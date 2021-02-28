@@ -9,7 +9,20 @@ export const Status = {
   FAILED: 'failed',
 };
 
-export default function useImage(src: string) {
+export default function useImage(
+  src: string,
+  height: number | undefined,
+  width: number | undefined
+) {
+  if (height || width) {
+    let res = src.match(/https:\/\/picsum.photos\/seed\/[0-9]{1,4}\//g);
+    if (res) {
+      console.log({ res });
+      console.log(`We have a match ${src}`);
+      src = `${res}${width}/${height}`;
+      console.log(`new src ${src}`);
+    }
+  }
   const cachedImg = cache.get(src);
   // if image in cache set initial to loaded else loading
   const initialState = cachedImg ? Status.LOADED : Status.LOADING;

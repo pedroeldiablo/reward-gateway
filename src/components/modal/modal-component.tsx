@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useViewport } from '../../context/viewPortContext';
 import { ProfilePictureComponent } from '../profile-picture/profile-picture.component';
 import { Modal } from './modal.styles';
 
@@ -18,13 +19,32 @@ export const ModalComponent = ({
     }
   };
 
+  // const [height, setHeight] = useState(0);
+  // const [width, setWidth] = useState(0);
+
+  // useEffect(() => {
+  //   const width = window.innerWidth;
+  //   const height = window.innerHeight;
+
+  //   setHeight(height);
+  //   setWidth(width);
+  //   console.log(`Model open`);
+  // }, [selectedImg]);
+
+  // const { width, height } = useViewport();
+
+  const width = 500;
+  const height = 500;
+
   return (
     <Modal className="backdrop" onClick={handleClick}>
-      {/* <ModalImage> */}
-      <ProfilePictureComponent title={title} avatar={selectedImg} />
-      {/* <img src={selectedImg} alt="enlarged pic" /> */}
+      <ProfilePictureComponent
+        title={title}
+        avatar={selectedImg}
+        height={height}
+        width={width}
+      />
       {selectedImg}
-      {/* </ModalImage> */}
     </Modal>
   );
 };
