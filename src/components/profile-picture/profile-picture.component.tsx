@@ -2,6 +2,7 @@ import React from 'react';
 import { ProfileImage } from '../../utils/fetchProfiles';
 import useImage, { Status } from '../../hooks/useImage';
 import fallback from '../../assets/images/user-profile.svg';
+import { ProfilePicture } from './profile-picture.styles';
 
 export function ProfilePictureComponent({
   avatar,
@@ -23,5 +24,10 @@ export function ProfilePictureComponent({
     source = image.currentSrc;
   }
 
-  return <img src={source ? source : fallback} alt={`Profile of ${title}`} />;
+  return (
+    <ProfilePicture
+      src={source ? source : fallback}
+      alt={`Profile of ${title}`}
+    />
+  );
 }
