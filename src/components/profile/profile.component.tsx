@@ -1,9 +1,34 @@
 import React, { useState } from 'react';
 import { useViewport } from '../../context/viewPortContext';
 import { Profile } from '../../utils/fetchProfiles';
-import { ModalComponent } from '../modal/modal-component';
+import { ModalComponent } from '../modal/modal.component';
 import { ProfilePictureComponent } from '../profile-picture/profile-picture.component';
-import { ProfileDetails, ProfileImage, ProfileTile } from './profile.styles';
+import {
+  ProfileCard,
+  ProfileDetails,
+  ProfileImage,
+  ProfileTile,
+} from './profile.styles';
+import { DropdownComponent } from '../dropdown/dropdown.component';
+
+const dropdownOptions = [
+  {
+    label: 'Pale Grey',
+    value: 'pale',
+  },
+  {
+    label: 'Soft Pink',
+    value: 'primary',
+  },
+  {
+    label: 'Dark Grey',
+    value: 'secondary',
+  },
+  {
+    label: 'Salmon Pink',
+    value: 'error',
+  },
+];
 
 export function ProfileComponent({
   uuid,
@@ -23,13 +48,15 @@ export function ProfileComponent({
   bio = removeMarkUp(bio);
 
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
+  const [selectedDropdown, setSelectedDropdown] = useState(dropdownOptions[0]);
 
+  // TODO set these dynamically based on presentation
   const width = 300;
   const height = 300;
 
   return (
-    <>
-      <ProfileTile key={uuid}>
+    <ProfileCard key={uuid} value={selectedDropdown.value}>
+      <ProfileTile key={uuid} value={selectedDropdown.value}>
         <ProfileImage onClick={() => setSelectedImg(avatar)}>
           <ProfilePictureComponent
             title={title}
@@ -39,12 +66,16 @@ export function ProfileComponent({
           />
         </ProfileImage>
         <ProfileDetails>
-          <p>
-            Name
-            {company}
-          </p>
-          <p>Profession {title}</p>
-          <p>{bio}</p>
+          <h3>Name {company}</h3>
+          <h4>Profession {title}</h4>
+          <p>Bio {bio}</p>
+          <DropdownComponent
+            label="Set colour"
+            options={dropdownOptions}
+            selected={selectedDropdown}
+            onSelectedChange={setSelectedDropdown}
+            value={selectedDropdown.value}
+          />
         </ProfileDetails>
       </ProfileTile>
       {selectedImg && (
@@ -54,7 +85,7 @@ export function ProfileComponent({
           setSelectedImg={setSelectedImg}
         />
       )}
-    </>
+    </ProfileCard>
   );
 }
 
