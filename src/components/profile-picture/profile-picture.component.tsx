@@ -3,8 +3,13 @@ import { ProfileImage } from '../../utils/fetchProfiles';
 import useImage, { Status } from '../../hooks/useImage';
 import fallback from '../../assets/images/user-profile.svg';
 
-export function ProfilePictureComponent({ avatar, title }: ProfileImage) {
-  const [status, image] = useImage(avatar);
+export function ProfilePictureComponent({
+  avatar,
+  title,
+  height,
+  width,
+}: ProfileImage) {
+  const [status, image] = useImage(avatar, height, width);
 
   if (status === Status.LOADING) {
     return <div className="spinner">Spinner</div>;
@@ -14,6 +19,7 @@ export function ProfilePictureComponent({ avatar, title }: ProfileImage) {
   if (status === Status.FAILED) {
     source = fallback;
   } else {
+    console.log({ image });
     source = image.currentSrc;
   }
 

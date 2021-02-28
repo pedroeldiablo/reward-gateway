@@ -3,6 +3,8 @@ import btoa from 'btoa';
 export interface ProfileImage {
   title: string;
   avatar: string;
+  height?: number;
+  width?: number;
 }
 export interface Profile {
   uuid: string;
