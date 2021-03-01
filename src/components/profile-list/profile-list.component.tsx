@@ -68,11 +68,9 @@ export function ProfileListComponent() {
         {' '}
         {!currentProfiles?.length
           ? 'no profiles found'
-          : currentProfiles
-              .filter((profile, idx) => profile.title.includes(searchValue))
-              .map((profile: Profile) => (
-                <ProfileComponent key={profile.uuid} {...profile} />
-              ))}
+          : currentProfiles.map((profile: Profile) => (
+              <ProfileComponent key={profile.uuid} {...profile} />
+            ))}
       </ProfileList>
       <PaginationComponent
         currentPage={currentPage}

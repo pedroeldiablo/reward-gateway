@@ -174,7 +174,21 @@ export const DropdownComponent = ({
                   </>
                 );
               }
-              return '';
+              return (
+                <>
+                  <DropdownSelectedListItems
+                    key={options[0].value}
+                    value={options[0].value}
+                    className="text"
+                    onClick={() => setOpen(!open)}
+                  >
+                    Current: {options[0].label}
+                  </DropdownSelectedListItems>
+                  <DropdownList open={open} value={value}>
+                    {renderedOptions}
+                  </DropdownList>
+                </>
+              );
             })
           )}
         </DropdownList>
