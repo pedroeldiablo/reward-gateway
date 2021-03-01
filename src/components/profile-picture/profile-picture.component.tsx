@@ -20,7 +20,6 @@ export function ProfilePictureComponent({
   if (status === Status.FAILED) {
     source = fallback;
   } else {
-    console.log({ image });
     source = image.currentSrc;
   }
 

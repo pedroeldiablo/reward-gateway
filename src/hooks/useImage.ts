@@ -17,10 +17,10 @@ export default function useImage(
   if (height || width) {
     let res = src.match(/https:\/\/picsum.photos\/seed\/[0-9]{1,4}\//g);
     if (res) {
-      console.log({ res });
-      console.log(`We have a match ${src}`);
+      // console.log({ res });
+      // console.log(`We have a match ${src}`);
       src = `${res}${width}/${height}`;
-      console.log(`new src ${src}`);
+      // console.log(`new src ${src}`);
     }
   }
   const cachedImg = cache.get(src);
