@@ -42,9 +42,14 @@ export const DropdownSelectedListItems = styled.div<DropdownListItemsProps>`
   }
 `;
 
-export const DropdownHeader = styled.label<DropdownProps>`
-  background-color: ${(props) => props.theme.complement[props.value]};
-  color: ${(props) => props.theme.palette[props.value]};
+interface DropdownHeaderProps {
+  open: boolean;
+  color: string;
+}
+
+export const DropdownHeader = styled.label<DropdownHeaderProps>`
+  background-color: ${(props) => props.theme.complement[props.color]};
+  color: ${(props) => props.theme.palette[props.color]};
   display: flex;
   padding: 0.5rem;
   &:hover {

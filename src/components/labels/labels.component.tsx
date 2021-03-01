@@ -7,6 +7,7 @@ import {
   Field,
   // FieldProps,
 } from 'formik';
+import { UserPreferencesContext } from '../../context/userPreferencesContext';
 
 interface UserLabels {
   userLabels: string;
@@ -17,16 +18,56 @@ interface LabelsInterface {
   setLabels: React.Dispatch<React.SetStateAction<string | null | undefined>>;
 }
 
-export const LabelsComponent = ({ labels, setLabels }: LabelsInterface) => {
+export const LabelsComponent = ({ uuid }: { uuid: string }) => {
   const initialValues: UserLabels = { userLabels: '' };
+  const { state, dispatch } = React.useContext(UserPreferencesContext);
+
+  const profilePreference = state?.filter((obj) => {
+    console.log(obj.id);
+    console.log(obj.id === uuid);
+    return obj.id === uuid;
+  });
+
+  console.log({ uuid });
+  console.log({ profilePreference });
+
+  const handleSubmit = (value: string): void => {
+    if (state!.filter((profile) => profile.id === uuid).length > 0) {
+      if (dispatch) {
+        dispatch({
+          type: 'UPDATE_LABEL',
+          value: {
+            label: value,
+            id: uuid,
+          },
+        });
+      }
+    } else {
+      if (dispatch) {
+        dispatch({
+          type: 'CREATE_LABEL',
+          value: {
+            label: value,
+            id: uuid,
+          },
+        });
+      }
+    }
+  };
+
   return (
     <div>
-      <h4>Add labels to this profile</h4>
-      <p>{labels}</p>
+      <h4>Add labels to this profile {uuid}</h4>
+      {!profilePreference?.length
+        ? 'no labels found'
+        : profilePreference.map((profile) => (
+            <p key={profile.id}>{profile.label}</p>
+          ))}
+
       <Formik
         initialValues={initialValues}
         onSubmit={(values, actions) => {
-          setLabels(values.userLabels);
+          handleSubmit(values.userLabels);
           actions.resetForm();
           actions.setSubmitting(false);
         }}

@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { UserPreferencesContext } from '../../context/userPreferencesContext';
 import { fetchProfiles, Profile } from '../../utils/fetchProfiles';
 import PaginationComponent from '../pagination/pagination.component';
 import { ProfileComponent } from '../profile/profile.component';
@@ -18,6 +19,11 @@ export function ProfileListComponent() {
     indexOfFirstProfile,
     indexOfLastProfile
   );
+
+  const { user } = useContext(UserPreferencesContext);
+
+  console.log({ user });
+  console.log(user);
 
   useEffect(() => {
     // Basic implementation to handle race conditions
@@ -46,7 +52,7 @@ export function ProfileListComponent() {
 
   return (
     <>
-      <h2>Profile List</h2>
+      <h2>{user} Profile List</h2>
       <ProfileList>
         {' '}
         {!currentProfiles?.length
