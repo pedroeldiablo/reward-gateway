@@ -45,7 +45,7 @@ let req = new Request(uri, {
 console.log({ req });
 
 export function fetchProfiles<T>(): Promise<T> {
-  return fetch(req)
+  return fetch(req, { cache: 'force-cache' })
     .then(handleErrors)
     .then((response) => {
       console.log(response);

@@ -30,6 +30,7 @@ export const PaginationLink = styled.li`
     background-color: #ddd;
   }
   a {
+    width: 100%;
     padding: 1rem;
     text-decoration: none;
   }

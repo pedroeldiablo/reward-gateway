@@ -23,13 +23,8 @@ export const LabelsComponent = ({ uuid }: { uuid: string }) => {
   const { state, dispatch } = React.useContext(UserPreferencesContext);
 
   const profilePreference = state?.filter((obj) => {
-    console.log(obj.id);
-    console.log(obj.id === uuid);
     return obj.id === uuid;
   });
-
-  console.log({ uuid });
-  console.log({ profilePreference });
 
   const handleSubmit = (value: string): void => {
     if (state!.filter((profile) => profile.id === uuid).length > 0) {

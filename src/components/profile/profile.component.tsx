@@ -59,7 +59,8 @@ export function ProfileComponent({
   // TODO set these dynamically based on presentation
 
   const profilePreference = state?.filter((obj) => {
-    // console.log(obj.id);
+    // console.log('obj.id:', obj.id);
+    // console.log('uuid', uuid);
     // console.log(obj.id === uuid);
     return obj.id === uuid;
   });

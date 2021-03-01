@@ -24,7 +24,8 @@ const reducer = (state: UserProfilePreferences[], action: Action) => {
     case 'UPDATE_LABEL':
       return state.map((profile) => {
         if (profile.id === action.value.id) {
-          return action.value;
+          profile.label = action.value.label;
+          return profile;
         }
         return profile;
       });
@@ -33,7 +34,11 @@ const reducer = (state: UserProfilePreferences[], action: Action) => {
     case 'UPDATE_COLOR_PREFERENCE':
       return state.map((profile) => {
         if (profile.id === action.value.id) {
-          return action.value;
+          // return action.value;
+          profile.color = action.value.color;
+          profile.colorLabel = action.value.colorLabel;
+
+          return profile;
         }
         return profile;
       });
@@ -61,6 +66,7 @@ export const UserPreferencesProvider = ({ children }: { children: any }) => {
   const cache = window.localStorage.getItem('RGUserProfilePreferences');
   const initialState: UserProfilePreferences[] =
     (cache && JSON.parse(cache)) || [];
+  console.log({ initialState });
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
