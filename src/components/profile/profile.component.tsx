@@ -10,6 +10,7 @@ import {
   ProfileTile,
 } from './profile.styles';
 import { DropdownComponent } from '../dropdown/dropdown.component';
+import { LabelsComponent } from '../labels/labels.component';
 
 const dropdownOptions = [
   {
@@ -49,6 +50,7 @@ export function ProfileComponent({
 
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
   const [selectedDropdown, setSelectedDropdown] = useState(dropdownOptions[0]);
+  const [labels, setLabels] = useState<undefined | null | string>(undefined);
 
   // TODO set these dynamically based on presentation
   const width = 300;
@@ -76,6 +78,7 @@ export function ProfileComponent({
             onSelectedChange={setSelectedDropdown}
             value={selectedDropdown.value}
           />
+          <LabelsComponent labels={labels} setLabels={setLabels} />
         </ProfileDetails>
       </ProfileTile>
       {selectedImg && (
