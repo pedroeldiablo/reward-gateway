@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useViewport } from '../../context/viewPortContext';
 import { Profile } from '../../utils/fetchProfiles';
 import { ModalComponent } from '../modal/modal.component';
@@ -11,6 +11,7 @@ import {
 } from './profile.styles';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import { LabelsComponent } from '../labels/labels.component';
+import { UserPreferencesContext } from '../../context/userPreferencesContext';
 
 const dropdownOptions = [
   {
@@ -50,7 +51,9 @@ export function ProfileComponent({
 
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
   const [selectedDropdown, setSelectedDropdown] = useState(dropdownOptions[0]);
-  const [labels, setLabels] = useState<undefined | null | string>(undefined);
+  // const [labels, setLabels] = useState<undefined | null | string>(undefined);
+
+  // const { labels, setLabels } = useContext(UserPreferencesContext);
 
   // TODO set these dynamically based on presentation
   const width = 300;
@@ -78,7 +81,7 @@ export function ProfileComponent({
             onSelectedChange={setSelectedDropdown}
             value={selectedDropdown.value}
           />
-          <LabelsComponent labels={labels} setLabels={setLabels} />
+          <LabelsComponent uuid={uuid} />
         </ProfileDetails>
       </ProfileTile>
       {selectedImg && (
