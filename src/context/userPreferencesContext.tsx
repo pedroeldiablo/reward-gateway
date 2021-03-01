@@ -9,7 +9,11 @@ import React, {
 } from 'react';
 
 interface Action {
-  type: 'CREATE_LABEL' | 'UPDATE_LABEL' | 'UPDATE_COLOR';
+  type:
+    | 'CREATE_LABEL'
+    | 'UPDATE_LABEL'
+    | 'UPDATE_COLOR_PREFERENCE'
+    | 'CREATE_COLOR_PREFERENCE';
   value: UserProfilePreferences;
 }
 
@@ -24,7 +28,9 @@ const reducer = (state: UserProfilePreferences[], action: Action) => {
         }
         return profile;
       });
-    case 'UPDATE_COLOR':
+    case 'CREATE_COLOR_PREFERENCE':
+      return [action.value, ...state];
+    case 'UPDATE_COLOR_PREFERENCE':
       return state.map((profile) => {
         if (profile.id === action.value.id) {
           return action.value;
@@ -40,6 +46,7 @@ export interface UserProfilePreferences {
   id: string;
   label?: string;
   color?: string;
+  colorLabel?: string;
 }
 
 export const UserPreferencesContext = createContext<{

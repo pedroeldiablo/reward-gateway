@@ -50,18 +50,47 @@ export function ProfileComponent({
   bio = removeMarkUp(bio);
 
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
-  const [selectedDropdown, setSelectedDropdown] = useState(dropdownOptions[0]);
+  const { state, dispatch } = useContext(UserPreferencesContext);
+  // const [selectedDropdown, setSelectedDropdown] = useState(dropdownOptions[0]);
   // const [labels, setLabels] = useState<undefined | null | string>(undefined);
 
   // const { labels, setLabels } = useContext(UserPreferencesContext);
 
   // TODO set these dynamically based on presentation
+
+  const profilePreference = state?.filter((obj) => {
+    // console.log(obj.id);
+    // console.log(obj.id === uuid);
+    return obj.id === uuid;
+  });
+
+  let selectedDropdown: {
+    label: string | undefined;
+    value: string | undefined;
+  } = dropdownOptions[0];
+
+  !profilePreference?.length
+    ? (selectedDropdown = dropdownOptions[0])
+    : profilePreference.map((profile) => {
+        if (profile.color) {
+          return (selectedDropdown = {
+            label: profile.colorLabel,
+            value: profile.color,
+          });
+        }
+        return (selectedDropdown = dropdownOptions[0]);
+      });
+
+  // if(profilePreference.color)
+
+  // if (state!.filter((profile) => profile.id === uuid).length > 0) {
+
   const width = 300;
   const height = 300;
 
   return (
-    <ProfileCard key={uuid} value={selectedDropdown.value}>
-      <ProfileTile key={uuid} value={selectedDropdown.value}>
+    <ProfileCard key={uuid} value={selectedDropdown.value as string}>
+      <ProfileTile key={uuid} value={selectedDropdown.value as string}>
         <ProfileImage onClick={() => setSelectedImg(avatar)}>
           <ProfilePictureComponent
             title={title}
@@ -77,9 +106,10 @@ export function ProfileComponent({
           <DropdownComponent
             label="Set colour"
             options={dropdownOptions}
-            selected={selectedDropdown}
-            onSelectedChange={setSelectedDropdown}
-            value={selectedDropdown.value}
+            uuid={uuid}
+            // selected={selectedDropdown}
+            // onSelectedChange={setSelectedDropdown}
+            color={selectedDropdown.value as string}
           />
           <LabelsComponent uuid={uuid} />
         </ProfileDetails>
