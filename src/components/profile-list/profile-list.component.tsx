@@ -3,7 +3,8 @@ import { UserPreferencesContext } from '../../context/userPreferencesContext';
 import { fetchProfiles, Profile } from '../../utils/fetchProfiles';
 import PaginationComponent from '../pagination/pagination.component';
 import { ProfileComponent } from '../profile/profile.component';
-import { ProfileList } from './profile-list.styles';
+import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { ProfileList, ProfileTitle } from './profile-list.styles';
 
 export function ProfileListComponent() {
   const [profilesList, updateProfilesList] = useState<Profile[] | undefined>(
@@ -11,19 +12,24 @@ export function ProfileListComponent() {
   );
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchValue, setSearchValue] = useState('');
+
+  const filteredProfiles = profilesList?.filter((profile, idx) =>
+    profile.title.toLowerCase().includes(searchValue.toLowerCase())
+  );
+
+  console.log(filteredProfiles);
+
   const [profilesPerPage] = useState(10);
   // Get current profiles
   const indexOfLastProfile = currentPage * profilesPerPage;
   const indexOfFirstProfile = indexOfLastProfile - profilesPerPage;
-  const currentProfiles = profilesList?.slice(
+  const currentProfiles = filteredProfiles?.slice(
     indexOfFirstProfile,
     indexOfLastProfile
   );
 
   const { user } = useContext(UserPreferencesContext);
-
-  console.log({ user });
-  console.log(user);
 
   useEffect(() => {
     // Basic implementation to handle race conditions
@@ -52,13 +58,18 @@ export function ProfileListComponent() {
 
   return (
     <>
-      <h2>{user} Profile List</h2>
+      <SearchBarComponent
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+        setCurrentPage={setCurrentPage}
+      />
+      <ProfileTitle>{user} Profile List</ProfileTitle>
       <ProfileList>
         {' '}
         {!currentProfiles?.length
           ? 'no profiles found'
           : currentProfiles
-              .filter((profile, idx) => idx < 20)
+              .filter((profile, idx) => profile.title.includes(searchValue))
               .map((profile: Profile) => (
                 <ProfileComponent key={profile.uuid} {...profile} />
               ))}
@@ -66,7 +77,7 @@ export function ProfileListComponent() {
       <PaginationComponent
         currentPage={currentPage}
         profilesPerPage={profilesPerPage}
-        totalProfiles={profilesList?.length}
+        totalProfiles={filteredProfiles?.length}
         paginate={paginate}
       />
     </>
