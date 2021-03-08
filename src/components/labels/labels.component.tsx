@@ -52,11 +52,11 @@ export const LabelsComponent = ({ uuid }: { uuid: string }) => {
 
   return (
     <div>
-      <h4>Add labels to this profile {uuid}</h4>
+      {/* <h4>Add labels to this profile {uuid}</h4> */}
       {!profilePreference?.length
-        ? 'no labels found'
+        ? 'No labels'
         : profilePreference.map((profile) => (
-            <p key={profile.id}>{profile.label}</p>
+            <p key={profile.id}>Labels {profile.label}</p>
           ))}
 
       <Formik
@@ -68,7 +68,7 @@ export const LabelsComponent = ({ uuid }: { uuid: string }) => {
         }}
       >
         <Form>
-          <label htmlFor="userLabels">Labels</label>
+          <label htmlFor="userLabels">Add labels</label>
           <Field
             id="userLabels"
             name="userLabels"
