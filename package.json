@@ -41,8 +41,8 @@
     "server": "nodemon server.js",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn start\"",
     "build": "react-scripts build",
-    "lint": "eslint './src/**/*.{js,jsx}'",
-    "lint:fix": "eslint './src/**/*.{js,jsx}' --fix",
+    "lint": "eslint './src/**/*.[jt]s?(x)'",
+    "lint:fix": "eslint './src/**/*.[jt]s?(x)' --fix",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
